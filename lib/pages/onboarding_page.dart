@@ -58,55 +58,59 @@ class _OnboadingPageState extends State<OnboadingPage> {
           ],
         ),
       ),
-      bottomSheet: BottomSheet(
-        shape: const BeveledRectangleBorder(),
-        enableDrag: false,
-        onClosing: () {},
-        builder: (context) {
-          return Container(
-            color: Colors.white,
-            height: size.height * 0.27,
-            width: size.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10.h,
+      bottomSheet: _bottomSheet(),
+    );
+  }
+
+  BottomSheet _bottomSheet() {
+    return BottomSheet(
+      shape: const BeveledRectangleBorder(),
+      enableDrag: false,
+      onClosing: () {},
+      builder: (context) {
+        return Container(
+          color: Colors.white,
+          height: size.height * 0.27,
+          width: size.width,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10.h,
+              ),
+              SmoothPageIndicator(
+                onDotClicked: (index) => _pageController.jumpToPage(
+                  index,
                 ),
-                SmoothPageIndicator(
-                  onDotClicked: (index) => _pageController.jumpToPage(
-                    index,
-                  ),
-                  controller: _pageController,
-                  count: 3,
+                controller: _pageController,
+                count: 3,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 15.h,
+                  horizontal: 10.w,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15.h,
-                    horizontal: 10.w,
-                  ),
-                  child: Column(
-                    children: [
-                      const CustomAuthButton(
-                        textColor: Colors.white,
-                        isPrimaryColor: true,
-                        buttonName: "Sign Up",
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      const CustomAuthButton(
-                        textColor: Colors.black,
-                        isPrimaryColor: false,
-                        buttonName: "Login",
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        },
-      ),
+                child: Column(
+                  children: [
+                    const CustomAuthButton(
+                      textColor: Colors.white,
+                      isPrimaryColor: true,
+                      buttonName: "Sign Up",
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    const CustomAuthButton(
+                      textColor: Colors.black,
+                      isPrimaryColor: false,
+                      buttonName: "Login",
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
