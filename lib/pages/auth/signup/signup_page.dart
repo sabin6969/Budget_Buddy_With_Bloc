@@ -1,4 +1,8 @@
+import 'package:budgetbuddy_bloc/constants/image_path.dart';
+import 'package:budgetbuddy_bloc/main.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
+import 'package:budgetbuddy_bloc/widgets/custom_google_auth_button.dart';
+import 'package:budgetbuddy_bloc/widgets/custom_text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +16,12 @@ class SignupPage extends StatelessWidget {
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _nameFocusNode = FocusNode();
   final ValueNotifier<bool> _isChecked = ValueNotifier(false);
+  final ValueNotifier<bool> _isHidden = ValueNotifier(true);
 
   @override
   Widget build(BuildContext context) {
     final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -29,72 +35,70 @@ class SignupPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 10.h),
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
                 height: 10.h,
               ),
-              TextFormField(
-                keyboardType: TextInputType.name,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                controller: _nameController,
-                focusNode: _nameFocusNode,
-                onFieldSubmitted: (value) {
-                  FocusScope.of(context).requestFocus(_emailFocusNode);
-                },
-                decoration: InputDecoration(
-                  labelText: "Enter your name",
-                  prefixIcon: Icon(
-                    Icons.person_outline,
-                    color: isDark ? Colors.white : Colors.black,
-                  ),
-                ),
+              CustomTextFormField(
+                textEditingController: _nameController,
+                currentFocusNode: _nameFocusNode,
+                nextFocusNode: _emailFocusNode,
+                isDark: isDark,
+                labelText: "Enter your name",
+                prefixIcon: Icons.person_outline,
               ),
               SizedBox(
                 height: 20.h,
               ),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      fontWeight: FontWeight.normal,
-                    ),
-                onFieldSubmitted: (value) {
-                  FocusScope.of(context).requestFocus(_passwordFocusNode);
-                },
-                focusNode: _emailFocusNode,
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: "Enter your email",
-                  prefixIcon: Icon(
-                    CupertinoIcons.mail,
-                    color: isDark ? Colors.white : Colors.black,
-                    size: 22.w,
-                  ),
-                ),
+              CustomTextFormField(
+                isDark: isDark,
+                labelText: "Enter your email",
+                prefixIcon: CupertinoIcons.mail,
+                textEditingController: _emailController,
+                currentFocusNode: _emailFocusNode,
+                nextFocusNode: _passwordFocusNode,
               ),
               SizedBox(
                 height: 20.h,
               ),
-              TextFormField(
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      fontWeight: FontWeight.normal,
+              ValueListenableBuilder(
+                valueListenable: _isHidden,
+                builder: (context, value, child) {
+                  return TextFormField(
+                    obscureText: value,
+                    keyboardType: TextInputType.visiblePassword,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          fontWeight: FontWeight.normal,
+                        ),
+                    focusNode: _passwordFocusNode,
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: "Enter your password",
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: isDark ? Colors.white : Colors.black,
+                        size: 22.w,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          _isHidden.value = !_isHidden.value;
+                        },
+                        icon: value
+                            ? Icon(
+                                Icons.visibility_outlined,
+                                color: isDark ? Colors.white : Colors.black,
+                              )
+                            : Icon(
+                                Icons.visibility_off_outlined,
+                                color: isDark ? Colors.white : Colors.black,
+                              ),
+                      ),
                     ),
-                focusNode: _passwordFocusNode,
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: "Enter your password",
-                  prefixIcon: Icon(
-                    Icons.lock_outline,
-                    color: isDark ? Colors.white : Colors.black,
-                    size: 22.w,
-                  ),
-                ),
+                  );
+                },
               ),
               SizedBox(
                 height: 20.h,
@@ -131,12 +135,19 @@ class SignupPage extends StatelessWidget {
                 onPressed: () {},
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
               ),
-              CustomAuthButton(
-                textColor: Colors.white,
-                isPrimaryColor: false,
-                buttonName: "Continue with Google  ",
+              Text(
+                "Or with",
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              CustomGoogleAuthButton(
+                buttonName: "Continue with Google",
                 onPressed: () {},
               ),
               SizedBox(
