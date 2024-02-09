@@ -5,12 +5,13 @@ class CustomAuthButton extends StatelessWidget {
   final Color textColor;
   final bool isPrimaryColor;
   final String buttonName;
-  const CustomAuthButton({
-    super.key,
-    required this.textColor,
-    required this.isPrimaryColor,
-    required this.buttonName,
-  });
+  final void Function()? onPressed;
+  const CustomAuthButton(
+      {super.key,
+      required this.textColor,
+      required this.isPrimaryColor,
+      required this.buttonName,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class CustomAuthButton extends StatelessWidget {
       shape: const StadiumBorder(),
       height: size.height * 0.08,
       minWidth: size.width,
-      onPressed: () {},
+      onPressed: onPressed,
       color: isPrimaryColor
           ? Theme.of(context).primaryColor
           : Theme.of(context).secondaryHeaderColor,

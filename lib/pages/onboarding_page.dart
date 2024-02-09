@@ -1,3 +1,4 @@
+import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/constants/image_path.dart';
 import 'package:budgetbuddy_bloc/constants/title_text.dart';
 import 'package:budgetbuddy_bloc/main.dart';
@@ -69,7 +70,7 @@ class _OnboadingPageState extends State<OnboadingPage> {
       onClosing: () {},
       builder: (context) {
         return Container(
-          color: Colors.white,
+          color: Theme.of(context).scaffoldBackgroundColor,
           height: size.height * 0.27,
           width: size.width,
           child: Column(
@@ -91,18 +92,21 @@ class _OnboadingPageState extends State<OnboadingPage> {
                 ),
                 child: Column(
                   children: [
-                    const CustomAuthButton(
+                    CustomAuthButton(
                       textColor: Colors.white,
                       isPrimaryColor: true,
                       buttonName: "Sign Up",
+                      onPressed: () => Navigator.pushReplacementNamed(
+                          context, AppRoutes.signUpPageRoute),
                     ),
                     SizedBox(
                       height: 15.h,
                     ),
-                    const CustomAuthButton(
+                    CustomAuthButton(
                       textColor: Colors.black,
                       isPrimaryColor: false,
                       buttonName: "Login",
+                      onPressed: () {},
                     )
                   ],
                 ),

@@ -9,5 +9,5 @@ class TitleText {
       "Track your transaction easily,with categories and financial report ";
   static const String thirdOnboardingPrimaryText = "Planning ahead";
   static const String thirdOnboardingSeconaryText =
-      "Setup your budget for each categoryso you in control";
+      "Setup your budget for each category so you in control";
 }

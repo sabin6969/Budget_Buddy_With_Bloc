@@ -1,3 +1,4 @@
+import 'package:budgetbuddy_bloc/constants/routes.dart';
 import 'package:budgetbuddy_bloc/pages/home_page.dart';
 import 'package:budgetbuddy_bloc/pages/login_page.dart';
 import 'package:budgetbuddy_bloc/pages/onboarding_page.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lighModeTheme,
           themeMode: ThemeMode.system,
           darkTheme: AppTheme.darkModeTheme,
+          onGenerateRoute: Routes.generateRoutes,
           // home: isUserFirstTimeHere
           //     ? const OnboadingPage()
           //     : isUserLoggedIn
