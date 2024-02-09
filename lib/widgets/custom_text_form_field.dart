@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -35,6 +36,7 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: Icon(
           prefixIcon,
           color: isDark ? Colors.white : Colors.black,
+          size: 22.w,
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:budgetbuddy_bloc/constants/routes.dart';
 import 'package:budgetbuddy_bloc/pages/home_page.dart';
-import 'package:budgetbuddy_bloc/pages/login_page.dart';
+import 'package:budgetbuddy_bloc/pages/auth/login/login_page.dart';
 import 'package:budgetbuddy_bloc/pages/onboarding_page.dart';
 import 'package:budgetbuddy_bloc/themes/app_theme.dart';
 import 'package:flutter/material.dart';

@@ -106,7 +106,10 @@ class _OnboadingPageState extends State<OnboadingPage> {
                       textColor: Colors.black,
                       isPrimaryColor: false,
                       buttonName: "Login",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.loginPageRoute);
+                      },
                     )
                   ],
                 ),
