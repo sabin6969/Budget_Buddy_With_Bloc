@@ -1,3 +1,4 @@
+import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,13 +11,14 @@ class SignupPage extends StatelessWidget {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _nameFocusNode = FocusNode();
-  ValueNotifier<bool> _isChecked = ValueNotifier(false);
+  final ValueNotifier<bool> _isChecked = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
     final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         centerTitle: true,
         title: Text(
           "Sign Up",
@@ -31,6 +33,9 @@ class SignupPage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 10.h,
+              ),
               TextFormField(
                 keyboardType: TextInputType.name,
                 style: Theme.of(context).textTheme.labelMedium!.copyWith(
@@ -115,6 +120,52 @@ class SignupPage extends StatelessWidget {
                     );
                   },
                 ),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              CustomAuthButton(
+                textColor: Colors.white,
+                isPrimaryColor: true,
+                buttonName: "Sign Up",
+                onPressed: () {},
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              CustomAuthButton(
+                textColor: Colors.white,
+                isPrimaryColor: false,
+                buttonName: "Continue with Google  ",
+                onPressed: () {},
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account?",
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          fontWeight: FontWeight.normal,
+                        ),
+                  ),
+                  SizedBox(
+                    width: 2.w,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Login",
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
+                    ),
+                  )
+                ],
               )
             ],
           ),
