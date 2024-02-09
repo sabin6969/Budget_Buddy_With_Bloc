@@ -1,4 +1,3 @@
-import 'package:budgetbuddy_bloc/constants/image_path.dart';
 import 'package:budgetbuddy_bloc/main.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_google_auth_button.dart';
@@ -7,15 +6,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SignupPage extends StatelessWidget {
-  SignupPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   final FocusNode _emailFocusNode = FocusNode();
+
   final FocusNode _passwordFocusNode = FocusNode();
+
   final FocusNode _nameFocusNode = FocusNode();
+
   final ValueNotifier<bool> _isChecked = ValueNotifier(false);
+
   final ValueNotifier<bool> _isHidden = ValueNotifier(true);
 
   @override
