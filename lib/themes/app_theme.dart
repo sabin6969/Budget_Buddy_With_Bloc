@@ -3,8 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTheme {
   static ThemeData lighModeTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
+    iconTheme: const IconThemeData(color: Colors.black),
+    // scaffoldBackgroundColor: Colors.white,
+    colorScheme: const ColorScheme.light(),
     inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        fontSize: 14.sp,
+        color: Colors.black,
+      ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.w),
       ),
@@ -48,8 +54,16 @@ class AppTheme {
     ),
   );
   static ThemeData darkModeTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.black,
+    colorScheme: const ColorScheme.dark(),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+    ),
+    // scaffoldBackgroundColor: Colors.black,
     inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        fontSize: 14.sp,
+        color: Colors.white,
+      ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.w),
       ),

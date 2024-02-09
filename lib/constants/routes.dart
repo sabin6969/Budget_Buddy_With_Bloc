@@ -6,7 +6,7 @@ class Routes {
   static Route generateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.signUpPageRoute:
-        return MaterialPageRoute(builder: (context) => const SignupPage());
+        return MaterialPageRoute(builder: (context) => SignupPage());
       default:
         return MaterialPageRoute(builder: (context) => const Scaffold());
     }
