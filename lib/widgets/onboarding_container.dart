@@ -36,7 +36,7 @@ class OnboadingContainer extends StatelessWidget {
             Text(
               primaryText,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    fontSize: 28.w,
+                    fontSize: 22.w,
                   ),
               textAlign: TextAlign.center,
             ),
@@ -46,7 +46,7 @@ class OnboadingContainer extends StatelessWidget {
             Text(
               secondaryText,
               style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    fontSize: 18.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.normal,
                   ),
               textAlign: TextAlign.center,

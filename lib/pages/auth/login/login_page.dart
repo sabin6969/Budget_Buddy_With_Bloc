@@ -1,5 +1,7 @@
+import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_google_auth_button.dart';
+import 'package:budgetbuddy_bloc/widgets/custom_password_input_field.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_text_form_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,45 +37,26 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 10.h,
+              ),
               CustomTextFormField(
+                textInputType: TextInputType.emailAddress,
                 isDark: isDark,
                 labelText: "Email",
                 prefixIcon: CupertinoIcons.mail,
                 textEditingController: _emailController,
                 currentFocusNode: _emailFocusNode,
+                nextFocusNode: _passwordFocusNode,
               ),
               SizedBox(
                 height: 25.h,
               ),
-              ValueListenableBuilder(
-                valueListenable: _isHidden,
-                builder: (context, value, child) {
-                  return TextFormField(
-                    obscureText: value,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: isDark ? Colors.white : Colors.black,
-                        size: 22.w,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          _isHidden.value = !_isHidden.value;
-                        },
-                        icon: value
-                            ? Icon(
-                                Icons.visibility_outlined,
-                                color: isDark ? Colors.white : Colors.black,
-                              )
-                            : Icon(
-                                Icons.visibility_off_outlined,
-                                color: isDark ? Colors.white : Colors.black,
-                              ),
-                      ),
-                    ),
-                  );
-                },
+              CustomPasswordInputField(
+                isHidden: _isHidden,
+                passwordController: _passwordController,
+                passwordFocusNode: _passwordFocusNode,
+                isDark: isDark,
               ),
               SizedBox(
                 height: 25.h,
@@ -102,7 +85,12 @@ class _LoginPageState extends State<LoginPage> {
                 height: 25.h,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.resetPasswordPageRoute,
+                  );
+                },
                 child: Text(
                   "Forgot Password?",
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(
@@ -124,7 +112,12 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.signUpPageRoute,
+                      );
+                    },
                     child: Text(
                       "Sign Up",
                       style: Theme.of(context).textTheme.labelMedium!.copyWith(

@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.labelText,
     required this.prefixIcon,
     required this.textEditingController,
+    required this.textInputType,
     required this.currentFocusNode,
     this.nextFocusNode,
   });
@@ -18,11 +19,12 @@ class CustomTextFormField extends StatelessWidget {
   final IconData prefixIcon;
   final FocusNode currentFocusNode;
   final FocusNode? nextFocusNode;
+  final TextInputType textInputType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.name,
+      keyboardType: textInputType,
       style: Theme.of(context).textTheme.labelMedium!.copyWith(
             fontWeight: FontWeight.normal,
           ),

@@ -18,7 +18,7 @@ class CustomAuthButton extends StatelessWidget {
     size = MediaQuery.sizeOf(context);
     return MaterialButton(
       shape: const StadiumBorder(),
-      height: size.height * 0.075,
+      height: size.height * 0.07,
       minWidth: size.width,
       onPressed: onPressed,
       color: isPrimaryColor
