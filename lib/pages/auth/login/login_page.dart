@@ -1,5 +1,6 @@
 import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/pages/auth/login/bloc/login_bloc.dart';
+import 'package:budgetbuddy_bloc/utils/ui_utils.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_google_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_password_input_field.dart';
@@ -30,32 +31,11 @@ class _LoginPageState extends State<LoginPage> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: const BeveledRectangleBorder(),
-                content: Row(
-                  children: [
-                    const CircularProgressIndicator(),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    Text(
-                      "Loading",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
+          UiUtils.showLoadingDialog(context: context, message: "Loading");
         } else if (state is LoginInitial) {
           Navigator.pop(context);
         } else if (state is LoginFailed) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.message)));
+          UiUtils.showSnackBar(message: state.message, context: context);
         }
       },
       child: Scaffold(
