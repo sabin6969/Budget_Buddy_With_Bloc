@@ -2,9 +2,11 @@ import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/constants/image_path.dart';
 import 'package:budgetbuddy_bloc/constants/title_text.dart';
 import 'package:budgetbuddy_bloc/main.dart';
+import 'package:budgetbuddy_bloc/pages/auth/login/bloc/login_bloc.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/onboarding_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -107,8 +109,10 @@ class _OnboadingPageState extends State<OnboadingPage> {
                       isPrimaryColor: false,
                       buttonName: "Login",
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, AppRoutes.loginPageRoute);
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.loginPageRoute,
+                        );
                       },
                     )
                   ],
