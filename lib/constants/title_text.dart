@@ -14,5 +14,5 @@ class TitleText {
       "Don’t worry. Enter your email and we’ll send you a link to reset your password.";
   static const String emailIsOnTheWay = "Your email is on the way";
   static const String resetEmailInstructions =
-      "Check your email test@test.com and follow the instructions to reset your password";
+      "Check your email and follow the instructions to reset your password";
 }

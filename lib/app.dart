@@ -1,4 +1,5 @@
 import 'package:budgetbuddy_bloc/constants/routes.dart';
+import 'package:budgetbuddy_bloc/pages/auth/forgot_password/bloc/forgotpassword_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/auth/login/bloc/login_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/onboarding_page.dart';
 import 'package:budgetbuddy_bloc/themes/app_theme.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => LoginBloc()),
+            BlocProvider(create: (context) => ForgotpasswordBloc()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

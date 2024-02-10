@@ -18,7 +18,19 @@ class FirebaseAuthServices {
             onTimeout: () => throw TimeoutException("Server Request Timeout"),
           );
     } catch (e) {
-      print("An erorr occured");
+      throw Exception(e.toString());
+    }
+  }
+
+  Future sendResetEmailLink(String email) async {
+    try {
+      await _auth
+          .sendPasswordResetEmail(email: email)
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException("Server request timeout");
+      });
+      return;
+    } catch (e) {
       throw Exception(e.toString());
     }
   }

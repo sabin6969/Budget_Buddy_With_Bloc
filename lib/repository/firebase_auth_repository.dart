@@ -12,4 +12,8 @@ class FirebaseAuthRepository {
       password: password,
     );
   }
+
+  Future<void> sendResetEmailLink({required String email}) async {
+    firebaseAuthServices.sendResetEmailLink(email);
+  }
 }
