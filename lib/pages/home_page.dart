@@ -1,7 +1,8 @@
+import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/main.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_expense_card.dart';
 import 'package:flutter/material.dart';
-import 'package:budgetbuddy_bloc/widgets/custom_app_bar.dart';
+import 'package:budgetbuddy_bloc/widgets/custom_app_bar_for_home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -15,8 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final bool isDark =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Stack(
@@ -28,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           ),
           PreferredSize(
             preferredSize: Size(double.infinity, size.height * 0.25),
-            child: customAppBar(
+            child: customAppBarForHomePage(
               context: context,
               name: "Sabin Poudel",
               greetings: "Good afternoon",
@@ -71,9 +70,15 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         shape: const StadiumBorder(),
-        onPressed: () {},
-        child: const Icon(
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            AppRoutes.addExpenseIncomePage,
+          );
+        },
+        child: Icon(
           Icons.add,
+          size: 20.sp,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

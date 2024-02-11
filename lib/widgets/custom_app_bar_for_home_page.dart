@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget customAppBar({
+Widget customAppBarForHomePage({
   required BuildContext context,
   required String name,
   required String greetings,
