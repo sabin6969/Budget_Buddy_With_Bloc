@@ -13,6 +13,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> with EmailValidation {
 
   SignupBloc() : super(SignupInitial()) {
     on<SignupButtonPressed>(createAccountWithEmailAndPassword);
+    on<SignupWithGoogleButtonPressed>(signUpWithGoogle);
   }
 
   createAccountWithEmailAndPassword(
@@ -46,6 +47,24 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> with EmailValidation {
           emit(SignupFailed(message: e.toString()));
         }
       }
+    }
+  }
+
+  signUpWithGoogle(
+      SignupWithGoogleButtonPressed event, Emitter<SignupState> emit) async {
+    try {
+      emit(SignupLoading());
+      await _firebaseAuthRepository.signupWithGoogle();
+      emit(SignupInitial());
+      emit(SignupSucess());
+    } on FirebaseAuthException catch (e) {
+      emit(SignupInitial());
+      emit(SignupFailed(message: e.message ?? "An error occured"));
+    } catch (e) {
+      emit(SignupInitial());
+      emit(SignupFailed(
+        message: "User terminated google sign in",
+      ));
     }
   }
 }

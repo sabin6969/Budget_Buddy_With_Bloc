@@ -14,6 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with EmailValidation {
 
   LoginBloc() : super(LoginInitial()) {
     on<LoginButtonPressed>(logInWithEmailAndPassword);
+    on<LoginWithGoogleButtonPressed>(loginWithGoogle);
   }
 
   Future<void> logInWithEmailAndPassword(
@@ -42,6 +43,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with EmailValidation {
       } else {
         emit(LoginFailed(message: e.toString()));
       }
+    }
+  }
+
+  loginWithGoogle(
+      LoginWithGoogleButtonPressed event, Emitter<LoginState> emit) async {
+    try {
+      emit(LoginLoading());
+      await _authRepository.signupWithGoogle();
+      emit(LoginInitial());
+      emit(LoginSucess());
+    } on FirebaseAuthException catch (e) {
+      emit(LoginInitial());
+      emit(LoginFailed(message: e.message ?? "An error occured"));
+    } catch (e) {
+      emit(LoginInitial());
+      emit(LoginFailed(
+        message: "User terminated google sign in",
+      ));
     }
   }
 }

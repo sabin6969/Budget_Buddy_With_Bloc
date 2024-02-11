@@ -111,7 +111,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 CustomGoogleAuthButton(
                   buttonName: "Login with Google",
-                  onPressed: () {},
+                  onPressed: () {
+                    loginBloc.add(LoginWithGoogleButtonPressed());
+                  },
                 ),
                 SizedBox(
                   height: 25.h,

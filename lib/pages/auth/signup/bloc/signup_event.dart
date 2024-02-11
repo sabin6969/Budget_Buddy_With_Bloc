@@ -15,3 +15,5 @@ class SignupButtonPressed extends SignupEvent {
     required this.isChecked,
   });
 }
+
+class SignupWithGoogleButtonPressed extends SignupEvent {}

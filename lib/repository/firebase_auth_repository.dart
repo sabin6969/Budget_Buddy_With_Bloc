@@ -24,4 +24,8 @@ class FirebaseAuthRepository {
       password: password,
     );
   }
+
+  Future<UserCredential> signupWithGoogle() async {
+    return firebaseAuthServices.signInWithGoogle();
+  }
 }
