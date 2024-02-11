@@ -1,4 +1,5 @@
 import 'package:budgetbuddy_bloc/constants/app_routes.dart';
+import 'package:budgetbuddy_bloc/main.dart';
 import 'package:budgetbuddy_bloc/pages/auth/login/bloc/login_bloc.dart';
 import 'package:budgetbuddy_bloc/utils/ui_utils.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
@@ -47,6 +48,13 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pop(context);
         } else if (state is LoginFailed) {
           UiUtils.showSnackBar(message: state.message, context: context);
+        } else if (state is LoginSucess) {
+          userPreferences.markUserAsLoggedIn();
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.homePageRoute,
+            (route) => false,
+          );
         }
       },
       child: Scaffold(

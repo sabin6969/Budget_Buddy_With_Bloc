@@ -6,12 +6,10 @@ import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_google_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_password_input_field.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_text_form_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -206,13 +204,6 @@ class _SignupPageState extends State<SignupPage> {
                     )
                   ],
                 ),
-                TextButton(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    await GoogleSignIn().signOut();
-                  },
-                  child: const Text("Sign out"),
-                )
               ],
             ),
           ),
