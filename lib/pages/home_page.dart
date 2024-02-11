@@ -3,6 +3,7 @@ import 'package:budgetbuddy_bloc/widgets/custom_expense_card.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_app_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +15,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final bool isDark =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Stack(
@@ -63,6 +66,44 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: const StadiumBorder(),
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        iconSize: 20.sp,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Bootstrap.house,
+            ),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Bootstrap.graph_up_arrow,
+            ),
+            label: "Stats",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Bootstrap.wallet,
+            ),
+            label: "Wallet",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Bootstrap.person,
+            ),
+            label: "Profile",
           )
         ],
       ),
