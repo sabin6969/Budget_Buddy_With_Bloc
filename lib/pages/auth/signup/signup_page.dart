@@ -36,6 +36,19 @@ class _SignupPageState extends State<SignupPage> {
   final ValueNotifier<bool> _isHidden = ValueNotifier(true);
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _nameFocusNode.dispose();
+    _isChecked.dispose();
+    _isHidden.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     size = MediaQuery.sizeOf(context);
@@ -44,12 +57,8 @@ class _SignupPageState extends State<SignupPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Sign Up",
-          style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w500,
-              ),
         ),
       ),
       body: BlocListener<SignupBloc, SignupState>(

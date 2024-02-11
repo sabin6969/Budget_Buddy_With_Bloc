@@ -23,6 +23,17 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final ValueNotifier<bool> _isHidden = ValueNotifier(true);
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _isHidden.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isDark =
