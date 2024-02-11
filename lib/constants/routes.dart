@@ -1,6 +1,6 @@
 import 'package:budgetbuddy_bloc/constants/app_routes.dart';
-import 'package:budgetbuddy_bloc/pages/auth/forgot_password/reset_password_page.dart';
-import 'package:budgetbuddy_bloc/pages/auth/forgot_password/reset_password_sent_page.dart';
+import 'package:budgetbuddy_bloc/pages/auth/forgot_password/forgot_password_page.dart';
+import 'package:budgetbuddy_bloc/pages/auth/forgot_password/forgot_password_sent_page.dart';
 import 'package:budgetbuddy_bloc/pages/auth/login/login_page.dart';
 import 'package:budgetbuddy_bloc/pages/auth/signup/signup_page.dart';
 import 'package:flutter/material.dart';
