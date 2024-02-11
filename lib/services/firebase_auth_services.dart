@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FirebaseAuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // Sign in with email and password
   Future<UserCredential> signInWithEmailAndPassword(
       {required String email, required String password}) {
     try {
@@ -22,6 +23,7 @@ class FirebaseAuthServices {
     }
   }
 
+  // Send reset email link
   Future sendResetEmailLink(String email) async {
     try {
       await _auth
@@ -30,6 +32,20 @@ class FirebaseAuthServices {
         throw TimeoutException("Server request timeout");
       });
       return;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  // Sign up or create new account
+  Future signUpWithEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .timeout(const Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException("Server request timeout");
+      });
     } catch (e) {
       throw Exception(e.toString());
     }

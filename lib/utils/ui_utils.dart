@@ -18,7 +18,9 @@ class UiUtils {
               ),
               Text(
                 message,
-                style: Theme.of(context).textTheme.labelMedium,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      fontWeight: FontWeight.normal,
+                    ),
               )
             ],
           ),

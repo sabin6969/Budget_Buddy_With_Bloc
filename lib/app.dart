@@ -1,6 +1,9 @@
 import 'package:budgetbuddy_bloc/constants/routes.dart';
 import 'package:budgetbuddy_bloc/pages/auth/forgot_password/bloc/forgotpassword_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/auth/login/bloc/login_bloc.dart';
+import 'package:budgetbuddy_bloc/pages/auth/login/login_page.dart';
+import 'package:budgetbuddy_bloc/pages/auth/signup/bloc/signup_bloc.dart';
+import 'package:budgetbuddy_bloc/pages/home_page.dart';
 import 'package:budgetbuddy_bloc/pages/onboarding_page.dart';
 import 'package:budgetbuddy_bloc/themes/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(create: (context) => LoginBloc()),
             BlocProvider(create: (context) => ForgotpasswordBloc()),
+            BlocProvider(create: (context) => SignupBloc()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -34,12 +38,11 @@ class MyApp extends StatelessWidget {
             themeMode: ThemeMode.system,
             darkTheme: AppTheme.darkModeTheme,
             onGenerateRoute: Routes.generateRoutes,
-            // home: isUserFirstTimeHere
-            //     ? const OnboadingPage()
-            //     : isUserLoggedIn
-            //         ? const HomePage()
-            //         : const LoginPage(),
-            home: const OnboadingPage(),
+            home: isUserFirstTimeHere
+                ? const OnboadingPage()
+                : isUserLoggedIn
+                    ? const HomePage()
+                    : const LoginPage(),
           ),
         );
       },

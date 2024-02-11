@@ -14,6 +14,14 @@ class FirebaseAuthRepository {
   }
 
   Future<void> sendResetEmailLink({required String email}) async {
-    firebaseAuthServices.sendResetEmailLink(email);
+    await firebaseAuthServices.sendResetEmailLink(email);
+  }
+
+  Future<void> createAccountWithEmailAndPassword(
+      {required String email, required String password}) async {
+    await firebaseAuthServices.signUpWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 }

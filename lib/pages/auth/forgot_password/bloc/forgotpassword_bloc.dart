@@ -17,6 +17,10 @@ class ForgotpasswordBloc extends Bloc<ForgotpasswordEvent, ForgotpasswordState>
 
   sendResetLink(ForgotPasswordButtonPressed event,
       Emitter<ForgotpasswordState> emit) async {
+    if (event.email.isEmpty) {
+      emit(FogetPasswordEmailSentFailed(message: "Enter a email"));
+      return;
+    }
     if (isEmailValid(event.email)) {
       try {
         emit(ForgotpasswordLoading());
