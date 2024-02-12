@@ -29,7 +29,11 @@ class _StatsPageState extends State<StatsPage> {
             hasNavigation: false,
           ),
           StreamBuilder(
-            stream: FirebaseFirestore.instance.collection("users").snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("users")
+                .doc("2GW18mlFSVg7hQDPHd5Q0fFfLLq1")
+                .collection("expenses")
+                .snapshots(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:

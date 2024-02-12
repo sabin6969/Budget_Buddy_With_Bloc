@@ -10,8 +10,10 @@ class CustomDatePicker extends StatefulWidget {
   State<CustomDatePicker> createState() => _CustomDatePickerState();
 }
 
+String formattedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
+
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  String formattedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -29,6 +31,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           formattedDate = DateFormat("yyyy-MM-dd").format(
             value!,
           );
+          timeStamp = value.millisecondsSinceEpoch.toString();
           setState(() {});
         });
       },

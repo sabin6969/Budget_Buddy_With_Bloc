@@ -71,6 +71,7 @@ class _SignupPageState extends State<SignupPage> {
             Navigator.pop(context);
           } else if (state is SignupSucess) {
             UiUtils.showSnackBar(message: "Account created", context: context);
+            userPreferences.markUserAsLoggedIn();
             Navigator.pushNamedAndRemoveUntil(
                 context, AppRoutes.homePageRoute, (route) => false);
           }

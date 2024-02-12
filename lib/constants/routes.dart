@@ -1,5 +1,5 @@
 import 'package:budgetbuddy_bloc/constants/app_routes.dart';
-import 'package:budgetbuddy_bloc/pages/add_expense_income_page.dart';
+import 'package:budgetbuddy_bloc/pages/add_transaction/add_transaction_page.dart';
 import 'package:budgetbuddy_bloc/pages/auth/forgot_password/forgot_password_page.dart';
 import 'package:budgetbuddy_bloc/pages/auth/forgot_password/forgot_password_sent_page.dart';
 import 'package:budgetbuddy_bloc/pages/auth/login/login_page.dart';

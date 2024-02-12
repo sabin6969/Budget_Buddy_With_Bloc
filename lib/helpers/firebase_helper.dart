@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:budgetbuddy_bloc/constants/firebase_collection_paths.dart';
+import 'package:budgetbuddy_bloc/models/transactions_model.dart';
 import 'package:budgetbuddy_bloc/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +15,7 @@ class FirebaseHelper {
 
   Future<void> insertUserRecord(UserModel user) async {
     _firebaseFirestore
-        .collection("users")
+        .collection(FirebaseCollectionPaths.users)
         .doc(_firebaseAuth.currentUser!.uid)
         .set(
           user.toJson(),
@@ -22,7 +26,7 @@ class FirebaseHelper {
     try {
       DocumentSnapshot<Map<String, dynamic>> snapshotData =
           await _firebaseFirestore
-              .collection("users")
+              .collection(FirebaseCollectionPaths.users)
               .doc(_firebaseAuth.currentUser!.uid)
               .get();
       userData = UserModel.fromJson(snapshotData.data()!);
@@ -30,6 +34,20 @@ class FirebaseHelper {
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  Future<void> addTranscations(TransactionModel transaction) async {
+    _firebaseFirestore
+        .collection(FirebaseCollectionPaths.users)
+        .doc(_firebaseAuth.currentUser!.uid)
+        .collection(FirebaseCollectionPaths.transactions)
+        .doc()
+        .set(
+          transaction.toJson(),
+        )
+        .timeout(const Duration(seconds: 10), onTimeout: () {
+      throw TimeoutException("Server request timeout");
+    });
   }
 
   Future<void> signOut() async {
