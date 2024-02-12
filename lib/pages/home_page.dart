@@ -1,10 +1,12 @@
 import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/main.dart';
 import 'package:budgetbuddy_bloc/pages/dashboard/dashboard_page.dart';
+import 'package:budgetbuddy_bloc/pages/profile/bloc/profile_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/profile/profile_page.dart';
 import 'package:budgetbuddy_bloc/pages/stats/stats_page.dart';
 import 'package:budgetbuddy_bloc/pages/wallet/wallet_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -24,11 +26,14 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: const [
-          DashboardPage(),
-          StatsPage(),
-          WalletPage(),
-          ProfilePage(),
+        children: [
+          const DashboardPage(),
+          const StatsPage(),
+          const WalletPage(),
+          BlocProvider.value(
+            value: BlocProvider.of<ProfileBloc>(context),
+            child: const ProfilePage(),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(

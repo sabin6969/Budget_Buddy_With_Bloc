@@ -18,16 +18,19 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
+final FirebaseHelper _firebaseHelper = FirebaseHelper();
+
 class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
-  FirebaseHelper firebaseHelper = FirebaseHelper();
   final FocusNode nameFocusNode = FocusNode();
   final FocusNode aboutfocusNode = FocusNode();
 
   @override
   void initState() {
-    context.read<ProfileBloc>().add(ProfileLoad());
+    if (context.read<ProfileBloc>().state is ProfileInitial) {
+      context.read<ProfileBloc>().add(ProfileLoad());
+    }
     super.initState();
   }
 
@@ -36,76 +39,103 @@ class _ProfilePageState extends State<ProfilePage> {
     final bool isDark =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     size = MediaQuery.sizeOf(context);
-    return Scaffold(body: BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
-        if (state is ProfileLoading) {
-          nameController.text = "Loading";
-          aboutController.text = "Loading";
-          return Stack(
-            children: [
-              Container(
-                height: size.height,
-                width: size.width,
-                color: Theme.of(context).scaffoldBackgroundColor,
+    return Scaffold(
+      body: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileLoading) {
+            nameController.text = "Loading";
+            aboutController.text = "Loading";
+            return Stack(
+              children: [
+                Container(
+                  height: size.height,
+                  width: size.width,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+                customAppBarNormal(
+                  context: context,
+                  size: size,
+                  title: "Profile",
+                  hasNavigation: false,
+                ),
+                const ProfileAvatar(),
+                ProfileForm(
+                  isDark: isDark,
+                  nameController: nameController,
+                  nameFocusNode: nameFocusNode,
+                  aboutController: aboutController,
+                  aboutfocusNode: aboutfocusNode,
+                  email: "Loading",
+                )
+              ],
+            );
+          } else if (state is ProfileLoaded) {
+            nameController.text = state.userModel.userName ?? "Username";
+            aboutController.text = state.userModel.about ?? "About";
+            return Stack(
+              children: [
+                Container(
+                  height: size.height,
+                  width: size.width,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+                customAppBarNormal(
+                  context: context,
+                  size: size,
+                  title: "Profile",
+                  hasNavigation: false,
+                ),
+                ProfileAvatar(
+                  imageUrl: state.userModel.profileImageUrl,
+                ),
+                ProfileForm(
+                  isDark: isDark,
+                  nameController: nameController,
+                  nameFocusNode: nameFocusNode,
+                  aboutfocusNode: aboutfocusNode,
+                  aboutController: aboutController,
+                  email: state.userModel.email ?? "Email",
+                )
+              ],
+            );
+          } else if (state is ProfileLoadingErorr) {
+            return Center(
+              child: Text(
+                state.message,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
-              customAppBarNormal(
-                context: context,
-                size: size,
-                title: "Profile",
-                hasNavigation: false,
-              ),
-              const ProfileAvatar(),
-              ProfileForm(
-                isDark: isDark,
-                nameController: nameController,
-                nameFocusNode: nameFocusNode,
-                aboutController: aboutController,
-                aboutfocusNode: aboutfocusNode,
-                email: "Loading",
-              )
-            ],
-          );
-        } else if (state is ProfileLoaded) {
-          nameController.text = state.userModel.userName ?? "Username";
-          aboutController.text = state.userModel.about ?? "About";
-          return Stack(
-            children: [
-              Container(
-                height: size.height,
-                width: size.width,
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-              customAppBarNormal(
-                context: context,
-                size: size,
-                title: "Profile",
-                hasNavigation: false,
-              ),
-              ProfileAvatar(
-                imageUrl: state.userModel.profileImageUrl,
-              ),
-              ProfileForm(
-                isDark: isDark,
-                nameController: nameController,
-                nameFocusNode: nameFocusNode,
-                aboutfocusNode: aboutfocusNode,
-                aboutController: aboutController,
-                email: state.userModel.email ?? "Email",
-              )
-            ],
-          );
-        } else if (state is ProfileLoadingErorr) {
-          return Center(
-            child: Text(
-              state.message,
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-          );
-        } else {
-          return const SizedBox();
-        }
-      },
-    ));
+            );
+          } else {
+            nameController.text = "Loading";
+            aboutController.text = "Loading";
+            return Stack(
+              children: [
+                Container(
+                  height: size.height,
+                  width: size.width,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                ),
+                customAppBarNormal(
+                  context: context,
+                  size: size,
+                  title: "Profile",
+                  hasNavigation: false,
+                ),
+                const ProfileAvatar(),
+                ProfileForm(
+                  isDark: isDark,
+                  nameController: nameController,
+                  nameFocusNode: nameFocusNode,
+                  aboutController: aboutController,
+                  aboutfocusNode: aboutfocusNode,
+                  email: "Loading",
+                )
+              ],
+            );
+          }
+        },
+      ),
+    );
   }
 }
 
@@ -182,15 +212,17 @@ class ProfileForm extends StatelessWidget {
                 isPrimaryColor: true,
                 buttonName: "Log out",
                 onPressed: () async {
-                  userPreferences.removePreferences().then(
-                    (value) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRoutes.loginPageRoute,
-                        (route) => false,
-                      );
-                    },
-                  );
+                  userPreferences.removePreferences().then((value) {
+                    _firebaseHelper.signOut().then(
+                      (value) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRoutes.loginPageRoute,
+                          (route) => false,
+                        );
+                      },
+                    );
+                  });
                 },
               )
             ],
