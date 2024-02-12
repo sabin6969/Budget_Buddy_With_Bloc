@@ -5,4 +5,6 @@ class AppRoutes {
   static const String resentEmailSentPageRoute = "/resetEmailSentPage";
   static const String homePageRoute = "/homePage";
   static const String addExpenseIncomePage = "/addExpenseIncomePage";
+  static const String notificationPageRoute = "/notificationPage";
+  static const String profilePageRoute = "/profilePage";
 }

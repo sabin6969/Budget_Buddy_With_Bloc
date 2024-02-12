@@ -38,6 +38,7 @@ class _AddExpenseIncomePageState extends State<AddExpenseIncomePage> {
             child: customAppBarNormal(
               context: context,
               size: size,
+              title: "Add expense or income",
             ),
           ),
           Positioned(
@@ -45,55 +46,61 @@ class _AddExpenseIncomePageState extends State<AddExpenseIncomePage> {
             left: 25.w,
             right: 25.w,
             child: Container(
-              height: size.height * 0.6,
+              height: size.height * 0.5,
               width: size.width,
               decoration: BoxDecoration(
-                color: Colors.purple.shade500,
+                color: isDark
+                    ? Colors.black.withOpacity(0.3)
+                    : Colors.white.withOpacity(
+                        0.5,
+                      ),
                 borderRadius: BorderRadius.circular(
                   20.sp,
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    CustomTextFormField(
-                      isDark: isDark,
-                      labelText: "Expense title",
-                      prefixIcon: EvaIcons.text,
-                      textEditingController: _expenseTitleController,
-                      textInputType: TextInputType.text,
-                      currentFocusNode: _expenseFocusNode,
-                      nextFocusNode: _amountFocusNode,
-                      textCapitalization: TextCapitalization.sentences,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    CustomTextFormField(
-                      isDark: isDark,
-                      labelText: "Amount",
-                      prefixIcon: Bootstrap.currency_dollar,
-                      textEditingController: _amountController,
-                      textInputType: TextInputType.number,
-                      currentFocusNode: _amountFocusNode,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    const CustomDatePicker(),
-                    SizedBox(height: 30.h),
-                    CustomAuthButton(
-                      textColor: Colors.white,
-                      isPrimaryColor: true,
-                      buttonName: "Add Expense",
-                      onPressed: () {},
-                    )
-                  ],
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      CustomTextFormField(
+                        isDark: isDark,
+                        labelText: "Expense title",
+                        prefixIcon: EvaIcons.text,
+                        textEditingController: _expenseTitleController,
+                        textInputType: TextInputType.text,
+                        currentFocusNode: _expenseFocusNode,
+                        nextFocusNode: _amountFocusNode,
+                        textCapitalization: TextCapitalization.sentences,
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      CustomTextFormField(
+                        isDark: isDark,
+                        labelText: "Amount",
+                        prefixIcon: Bootstrap.currency_dollar,
+                        textEditingController: _amountController,
+                        textInputType: TextInputType.number,
+                        currentFocusNode: _amountFocusNode,
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      const CustomDatePicker(),
+                      SizedBox(height: 30.h),
+                      CustomAuthButton(
+                        textColor: Colors.white,
+                        isPrimaryColor: true,
+                        buttonName: "Add Expense",
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

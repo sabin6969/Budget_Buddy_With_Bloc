@@ -34,12 +34,6 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       },
       child: Ink(
         height: 50,
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1.sp,
-            color: Colors.white,
-          ),
-        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
@@ -55,7 +49,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     ),
               ),
               Icon(
-                Bootstrap.calendar2_month_fill,
+                Bootstrap.calendar_fill,
                 size: 22.sp,
               )
             ],

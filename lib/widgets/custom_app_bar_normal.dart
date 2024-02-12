@@ -2,7 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget customAppBarNormal({required BuildContext context, required Size size}) {
+Widget customAppBarNormal({
+  required BuildContext context,
+  required Size size,
+  required String title,
+  bool hasNavigation = true,
+}) {
   return Container(
     height: size.height * 0.25,
     width: size.width,
@@ -20,36 +25,54 @@ Widget customAppBarNormal({required BuildContext context, required Size size}) {
         bottomRight: Radius.circular(30.sp),
       ),
     ),
-    child: Column(
-      children: [
-        SizedBox(
-          height: 40.h,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                CupertinoIcons.back,
+    child: hasNavigation
+        ? Column(
+            children: [
+              SizedBox(
+                height: 45.h,
               ),
-            ),
-            Text(
-              "Add Expense or Income",
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_horiz,
-                size: 30.sp,
-              ),
-            )
-          ],
-        )
-      ],
-    ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.back,
+                    ),
+                  ),
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.more_horiz,
+                      size: 30.sp,
+                    ),
+                  )
+                ],
+              )
+            ],
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 16.sp,
+                      color: Colors.white,
+                    ),
+              )
+            ],
+          ),
   );
 }

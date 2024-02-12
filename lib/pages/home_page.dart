@@ -1,8 +1,10 @@
 import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/main.dart';
-import 'package:budgetbuddy_bloc/widgets/custom_expense_card.dart';
+import 'package:budgetbuddy_bloc/pages/dashboard/dashboard_page.dart';
+import 'package:budgetbuddy_bloc/pages/profile/profile_page.dart';
+import 'package:budgetbuddy_bloc/pages/stats/stats_page.dart';
+import 'package:budgetbuddy_bloc/pages/wallet/wallet_page.dart';
 import 'package:flutter/material.dart';
-import 'package:budgetbuddy_bloc/widgets/custom_app_bar_for_home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -14,58 +16,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: size.height,
-            width: size.width,
-            color: Theme.of(context).scaffoldBackgroundColor,
-          ),
-          PreferredSize(
-            preferredSize: Size(double.infinity, size.height * 0.25),
-            child: customAppBarForHomePage(
-              context: context,
-              name: "Sabin Poudel",
-              greetings: "Good afternoon",
-              height: size.height * 0.25,
-              onPressed: () {},
-            ),
-          ),
-          Positioned(
-            top: 150.h,
-            left: 15.w,
-            right: 15.w,
-            child: customExpenseCard(
-              context: context,
-              size: size,
-              income: 200000,
-              expense: 540000,
-              totalTransactions: 123023234232,
-            ),
-          ),
-          Positioned(
-            top: 400.h,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 15.w,
-                vertical: 5.h,
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    "Transaction History",
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-          )
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: pageController,
+        children: const [
+          DashboardPage(),
+          StatsPage(),
+          WalletPage(),
+          ProfilePage(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -83,6 +46,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) => pageController.jumpToPage(index),
         type: BottomNavigationBarType.fixed,
         iconSize: 20.sp,
         items: const [

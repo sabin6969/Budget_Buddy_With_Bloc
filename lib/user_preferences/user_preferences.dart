@@ -22,4 +22,8 @@ class UserPreferences {
   void markUserAsNotFirstTime() async {
     await sharedPreferences.setBool("isFirstTimeUser", false);
   }
+
+  Future<void> removePreferences() async {
+    await sharedPreferences.remove("isLoggedIn");
+  }
 }
