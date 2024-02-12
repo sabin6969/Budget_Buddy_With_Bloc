@@ -41,7 +41,6 @@ class _AddExpenseIncomePageState extends State<AddExpenseIncomePage> {
             UiUtils.showLoadingDialog(
                 context: context, message: "Adding transcations");
           } else if (state is AddtransactionFailed) {
-            Navigator.of(context).pop(); // Close loading dialog
             UiUtils.showSnackBar(message: state.message, context: context);
           } else if (state is AddtransactionSucess) {
             Navigator.of(context).pop(); // Close loading dialog
@@ -73,13 +72,13 @@ class _AddExpenseIncomePageState extends State<AddExpenseIncomePage> {
               left: 25.w,
               right: 25.w,
               child: Container(
-                height: size.height * 0.7,
+                height: size.height * 0.6,
                 width: size.width,
                 decoration: BoxDecoration(
                   color: isDark
-                      ? Colors.black.withOpacity(0.3)
+                      ? Colors.black.withOpacity(0)
                       : Colors.white.withOpacity(
-                          0.2,
+                          0,
                         ),
                   borderRadius: BorderRadius.circular(
                     20.sp,
@@ -87,13 +86,10 @@ class _AddExpenseIncomePageState extends State<AddExpenseIncomePage> {
                 ),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 7.w),
+                    padding: EdgeInsets.symmetric(horizontal: 0.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: 30.h,
-                        ),
                         CustomTextFormField(
                           isDark: isDark,
                           labelText: "Expense title",

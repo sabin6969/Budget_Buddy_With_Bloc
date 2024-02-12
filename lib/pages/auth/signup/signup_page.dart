@@ -90,7 +90,7 @@ class _SignupPageState extends State<SignupPage> {
                   currentFocusNode: _nameFocusNode,
                   nextFocusNode: _emailFocusNode,
                   isDark: isDark,
-                  labelText: "Enter your name",
+                  labelText: "Name",
                   prefixIcon: Icons.person_outline,
                 ),
                 SizedBox(
@@ -99,7 +99,7 @@ class _SignupPageState extends State<SignupPage> {
                 CustomTextFormField(
                   textInputType: TextInputType.emailAddress,
                   isDark: isDark,
-                  labelText: "Enter your email",
+                  labelText: "Email",
                   prefixIcon: CupertinoIcons.mail,
                   textEditingController: _emailController,
                   currentFocusNode: _emailFocusNode,

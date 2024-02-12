@@ -15,14 +15,14 @@ class AddtransactionBloc
       AddTransactionEvent event, Emitter<AddtransactionState> emit) async {
     if (event.transactionModel.title!.isEmpty ||
         event.transactionModel.amount == null) {
-      emit(AddtransactionFailed(message: "All fields are required"));
+      emit(AddtransactionFailed(
+          message: "All fields are required with proper type"));
     } else {
       try {
         emit(AddtransactionLoading());
         await _firebaseHelper.addTranscations(event.transactionModel);
         emit(AddtransactionSucess());
       } catch (e) {
-        emit(AddtransactionInitial());
         emit(AddtransactionFailed(message: e.toString()));
       }
     }

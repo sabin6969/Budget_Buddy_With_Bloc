@@ -50,6 +50,14 @@ class FirebaseHelper {
     });
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getAllTransactions() {
+    return _firebaseFirestore
+        .collection(FirebaseCollectionPaths.users)
+        .doc(_firebaseAuth.currentUser!.uid)
+        .collection(FirebaseCollectionPaths.transactions)
+        .snapshots();
+  }
+
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
