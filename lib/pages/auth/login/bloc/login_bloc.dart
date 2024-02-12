@@ -1,3 +1,5 @@
+import 'package:budgetbuddy_bloc/helpers/firebase_helper.dart';
+import 'package:budgetbuddy_bloc/models/user_model.dart';
 import 'package:budgetbuddy_bloc/repository/firebase_auth_repository.dart';
 import 'package:budgetbuddy_bloc/services/firebase_auth_services.dart';
 import 'package:budgetbuddy_bloc/utils/email_validation.dart';
@@ -11,6 +13,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with EmailValidation {
   final FirebaseAuthRepository _authRepository = FirebaseAuthRepository(
     firebaseAuthServices: FirebaseAuthServices(),
   );
+  FirebaseHelper firebaseHelper = FirebaseHelper();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   LoginBloc() : super(LoginInitial()) {
     on<LoginButtonPressed>(logInWithEmailAndPassword);
@@ -51,6 +55,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with EmailValidation {
     try {
       emit(LoginLoading());
       await _authRepository.signupWithGoogle();
+      firebaseHelper.insertUserRecord(UserModel(
+        email: firebaseAuth.currentUser!.email!,
+        userName: firebaseAuth.currentUser!.displayName!,
+        profileImageUrl: firebaseAuth.currentUser!.photoURL!,
+      ));
       emit(LoginInitial());
       emit(LoginSucess());
     } on FirebaseAuthException catch (e) {

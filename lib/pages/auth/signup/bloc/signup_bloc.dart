@@ -1,3 +1,5 @@
+import 'package:budgetbuddy_bloc/helpers/firebase_helper.dart';
+import 'package:budgetbuddy_bloc/models/user_model.dart';
 import 'package:budgetbuddy_bloc/repository/firebase_auth_repository.dart';
 import 'package:budgetbuddy_bloc/services/firebase_auth_services.dart';
 import 'package:budgetbuddy_bloc/utils/email_validation.dart';
@@ -10,6 +12,8 @@ part 'signup_state.dart';
 class SignupBloc extends Bloc<SignupEvent, SignupState> with EmailValidation {
   final FirebaseAuthRepository _firebaseAuthRepository =
       FirebaseAuthRepository(firebaseAuthServices: FirebaseAuthServices());
+  FirebaseHelper firebaseHelper = FirebaseHelper();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   SignupBloc() : super(SignupInitial()) {
     on<SignupButtonPressed>(createAccountWithEmailAndPassword);
@@ -37,7 +41,16 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> with EmailValidation {
         try {
           emit(SignupLoading());
           await _firebaseAuthRepository.createAccountWithEmailAndPassword(
-              email: event.email, password: event.password);
+            email: event.email,
+            password: event.password,
+          );
+          // Inserting data into firestore as soon as user account is created
+          firebaseHelper.insertUserRecord(
+            UserModel(
+              userName: event.name,
+              email: event.email,
+            ),
+          );
           emit(SignupSucess());
         } on FirebaseAuthException catch (e) {
           emit(SignupInitial());
@@ -55,6 +68,12 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> with EmailValidation {
     try {
       emit(SignupLoading());
       await _firebaseAuthRepository.signupWithGoogle();
+      // Inserting data into firestore as soon as user account is created
+      firebaseHelper.insertUserRecord(UserModel(
+        email: firebaseAuth.currentUser!.email!,
+        userName: firebaseAuth.currentUser!.displayName!,
+        profileImageUrl: firebaseAuth.currentUser!.photoURL!,
+      ));
       emit(SignupInitial());
       emit(SignupSucess());
     } on FirebaseAuthException catch (e) {

@@ -7,4 +7,5 @@ class AppImagePath {
       "assets/images/onboarding_third_image.png";
   static const String googleLogo = "assets/logos/google_logo.png";
   static const String resetEmailImage = "assets/images/reset_email.png";
+  static const String userImageAvatar = "assets/images/user_avatar.png";
 }

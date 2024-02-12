@@ -5,6 +5,7 @@ import 'package:budgetbuddy_bloc/pages/auth/login/login_page.dart';
 import 'package:budgetbuddy_bloc/pages/auth/signup/bloc/signup_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/home_page.dart';
 import 'package:budgetbuddy_bloc/pages/onboarding_page.dart';
+import 'package:budgetbuddy_bloc/pages/profile/bloc/profile_bloc.dart';
 import 'package:budgetbuddy_bloc/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => LoginBloc()),
             BlocProvider(create: (context) => ForgotpasswordBloc()),
             BlocProvider(create: (context) => SignupBloc()),
+            BlocProvider(create: (context) => ProfileBloc()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
