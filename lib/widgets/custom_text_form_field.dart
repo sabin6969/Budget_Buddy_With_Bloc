@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
     this.nextFocusNode,
     this.textCapitalization,
     this.initialValue,
+    this.isEnabled,
   });
 
   final TextEditingController? textEditingController;
@@ -24,10 +25,12 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final TextCapitalization? textCapitalization;
   final String? initialValue;
+  final bool? isEnabled;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
+      enabled: isEnabled,
       textCapitalization: textCapitalization ?? TextCapitalization.none,
       keyboardType: textInputType,
       style: Theme.of(context).textTheme.labelMedium!.copyWith(

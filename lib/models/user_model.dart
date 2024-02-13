@@ -12,7 +12,7 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     about = json["about"];
-    userName = json["UserModelName"];
+    userName = json["userName"];
     profileImageUrl = json["profileImageUrl"];
     email = json["email"];
   }
@@ -20,7 +20,7 @@ class UserModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data["about"] = about;
-    data["UserModelName"] = userName;
+    data["userName"] = userName;
     data["profileImageUrl"] = profileImageUrl;
     data["email"] = email;
     return data;

@@ -183,12 +183,14 @@ class ProfileForm extends StatelessWidget {
                 textInputType: TextInputType.name,
                 currentFocusNode: nameFocusNode,
                 nextFocusNode: aboutfocusNode,
+                isEnabled: false,
               ),
               SizedBox(
                 height: 20.h,
               ),
               CustomTextFormField(
                 isDark: isDark,
+                isEnabled: false,
                 labelText: "About",
                 prefixIcon: Icons.info,
                 textEditingController: aboutController,
@@ -197,12 +199,6 @@ class ProfileForm extends StatelessWidget {
               ),
               SizedBox(
                 height: 20.h,
-              ),
-              CustomAuthButton(
-                textColor: Colors.white,
-                isPrimaryColor: true,
-                buttonName: "Update info",
-                onPressed: () {},
               ),
               SizedBox(
                 height: 20.h,
@@ -251,24 +247,6 @@ class ProfileAvatar extends StatelessWidget {
                 AppImagePath.userImageAvatar,
               )
             : NetworkImage(imageUrl!) as ImageProvider,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomRight,
-              child: CircleAvatar(
-                radius: 18,
-                backgroundColor: Colors.white70,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    CupertinoIcons.camera,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

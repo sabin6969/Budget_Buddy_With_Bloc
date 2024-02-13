@@ -1,6 +1,8 @@
 import 'package:budgetbuddy_bloc/main.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_app_bar_normal.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
@@ -27,6 +29,12 @@ class _WalletPageState extends State<WalletPage> {
             title: "Wallet",
             hasNavigation: false,
           ),
+          Positioned(
+            top: 100.h,
+            child: SizedBox(
+                // child: BarChart(),
+                ),
+          )
         ],
       ),
     );

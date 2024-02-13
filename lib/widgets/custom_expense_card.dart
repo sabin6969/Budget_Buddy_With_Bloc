@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 Widget customExpenseCard({
   required BuildContext context,
   required Size size,
-  required double totalTransactions,
+  required int totalTransactions,
   required double income,
   required double expense,
 }) {

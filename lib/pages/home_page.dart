@@ -1,5 +1,6 @@
 import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/main.dart';
+import 'package:budgetbuddy_bloc/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/dashboard/dashboard_page.dart';
 import 'package:budgetbuddy_bloc/pages/profile/bloc/profile_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/profile/profile_page.dart';
@@ -27,7 +28,10 @@ class _HomePageState extends State<HomePage> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          const DashboardPage(),
+          BlocProvider.value(
+            value: BlocProvider.of<DashboardBloc>(context),
+            child: const DashboardPage(),
+          ),
           const StatsPage(),
           const WalletPage(),
           BlocProvider.value(
