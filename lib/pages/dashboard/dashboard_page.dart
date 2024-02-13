@@ -22,7 +22,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   void initState() {
-    if (context.read<DashboardBloc>().state is! DashboardLoadedState) {
+    if (context.read<DashboardBloc>().state is DashboardInitial) {
       context.read<DashboardBloc>().add(LoadDashboardDataEvent());
     }
     super.initState();

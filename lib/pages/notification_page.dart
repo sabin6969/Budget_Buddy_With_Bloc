@@ -29,9 +29,14 @@ class _NotificationPageState extends State<NotificationPage> {
           ),
           Positioned(
             top: 200.h,
-            child: const Center(
-              child: Text(
-                "No notifications to show",
+            child: SizedBox(
+              height: size.height * 0.5,
+              width: size.width,
+              child: Center(
+                child: Text(
+                  "Comming Soon",
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
               ),
             ),
           )

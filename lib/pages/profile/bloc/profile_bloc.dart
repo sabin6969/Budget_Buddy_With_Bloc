@@ -10,6 +10,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   late UserModel userModel;
   ProfileBloc() : super(ProfileInitial()) {
     on<ProfileLoad>(loadProfileData);
+    on<ProfileResetEvent>((event, emit) {
+      emit(ProfileInitial());
+    });
   }
 
   loadProfileData(ProfileLoad event, Emitter<ProfileState> emit) async {

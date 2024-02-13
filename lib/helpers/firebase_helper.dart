@@ -55,12 +55,12 @@ class FirebaseHelper {
         .collection(FirebaseCollectionPaths.users)
         .doc(_firebaseAuth.currentUser!.uid)
         .collection(FirebaseCollectionPaths.transactions)
+        .orderBy('timeStamp', descending: false)
         .snapshots();
   }
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
-    return;
   }
 }

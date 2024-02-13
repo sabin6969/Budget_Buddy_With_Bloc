@@ -70,10 +70,14 @@ class _SignupPageState extends State<SignupPage> {
           } else if (state is SignupInitial) {
             Navigator.pop(context);
           } else if (state is SignupSucess) {
-            UiUtils.showSnackBar(message: "Account created", context: context);
+            UiUtils.showSnackBar(
+                message: "Account created now you can login", context: context);
             userPreferences.markUserAsLoggedIn();
             Navigator.pushNamedAndRemoveUntil(
-                context, AppRoutes.homePageRoute, (route) => false);
+              context,
+              AppRoutes.loginPageRoute,
+              (route) => false,
+            );
           }
         },
         child: Padding(

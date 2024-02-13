@@ -1,7 +1,10 @@
+import 'package:budgetbuddy_bloc/helpers/firebase_helper.dart';
 import 'package:budgetbuddy_bloc/main.dart';
+import 'package:budgetbuddy_bloc/models/transactions_model.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_app_bar_normal.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({super.key});
@@ -11,6 +14,8 @@ class StatsPage extends StatefulWidget {
 }
 
 class _StatsPageState extends State<StatsPage> {
+  final FirebaseHelper _firebaseHelper = FirebaseHelper();
+  List<TransactionModel> transactions = [];
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.sizeOf(context);
@@ -25,37 +30,96 @@ class _StatsPageState extends State<StatsPage> {
           customAppBarNormal(
             context: context,
             size: size,
-            title: "Stats",
+            title: "Statistics",
             hasNavigation: false,
           ),
-          StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("users")
-                .doc("2GW18mlFSVg7hQDPHd5Q0fFfLLq1")
-                .collection("expenses")
-                .snapshots(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                case ConnectionState.active:
-                case ConnectionState.done:
-                  return const Center(
-                    child: Text("Data is available"),
-                  );
+          Positioned(
+            top: 250.h,
+            child: StreamBuilder(
+              stream: _firebaseHelper.getAllTransactions(),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case ConnectionState.active:
+                  case ConnectionState.done:
+                    transactions = snapshot.data!.docs.map((e) {
+                      return TransactionModel.fromJson(e.data());
+                    }).toList();
 
-                default:
-                  return const Center(
-                    child: Text("Default"),
-                  );
-              }
-            },
+                    if (transactions.isEmpty) {
+                      return SizedBox(
+                        height: size.height * 0.4,
+                        width: size.width,
+                        child: Center(
+                          child: Text(
+                            "No transactions to visualize",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.normal,
+                                ),
+                          ),
+                        ),
+                      );
+                    }
+                    return SizedBox(
+                      height: size.height * 0.4,
+                      width: size.width,
+                      child: LineChart(
+                        LineChartData(
+                          lineBarsData: getLineBarsData(transactions),
+                        ),
+                      ),
+                    );
+
+                  default:
+                    return const SizedBox.shrink();
+                }
+              },
+            ),
           )
         ],
       ),
     );
+  }
+
+  List<LineChartBarData> getLineBarsData(List<TransactionModel> transactions) {
+    List<FlSpot> spots = [];
+
+    DateTime firstDate = DateTime.fromMillisecondsSinceEpoch(
+        int.parse(transactions[0].timeStamp!));
+    for (int i = 0; i < transactions.length; i++) {
+      DateTime currentDate = DateTime.fromMillisecondsSinceEpoch(
+          int.parse(transactions[i].timeStamp!));
+      double xValue = currentDate.difference(firstDate).inDays.toDouble();
+      spots.add(
+        FlSpot(
+          xValue,
+          transactions[i].amount!.toDouble(),
+        ),
+      );
+    }
+
+    return [
+      LineChartBarData(
+        spots: spots,
+        isCurved: true,
+        color: Colors.blue,
+        barWidth: 3,
+        isStrokeCapRound: true,
+        dotData: const FlDotData(
+          show: false,
+        ),
+        belowBarData: BarAreaData(
+          show: true,
+          color: Colors.blue.withOpacity(0.3),
+        ),
+      ),
+    ];
   }
 }

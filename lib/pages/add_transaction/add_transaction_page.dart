@@ -64,7 +64,7 @@ class _AddExpenseIncomePageState extends State<AddExpenseIncomePage> {
               child: customAppBarNormal(
                 context: context,
                 size: size,
-                title: "Add expense or income",
+                title: "Add transactions",
               ),
             ),
             Positioned(

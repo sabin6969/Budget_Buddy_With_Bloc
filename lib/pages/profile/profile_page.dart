@@ -2,11 +2,11 @@ import 'package:budgetbuddy_bloc/constants/app_routes.dart';
 import 'package:budgetbuddy_bloc/constants/image_path.dart';
 import 'package:budgetbuddy_bloc/helpers/firebase_helper.dart';
 import 'package:budgetbuddy_bloc/main.dart';
+import 'package:budgetbuddy_bloc/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:budgetbuddy_bloc/pages/profile/bloc/profile_bloc.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_app_bar_normal.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_auth_button.dart';
 import 'package:budgetbuddy_bloc/widgets/custom_text_form_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -86,7 +86,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   hasNavigation: false,
                 ),
                 ProfileAvatar(
-                  imageUrl: state.userModel.profileImageUrl,
+                  imageUrl: state.userModel.profileImageUrl == ""
+                      ? null
+                      : state.userModel.profileImageUrl,
                 ),
                 ProfileForm(
                   isDark: isDark,
@@ -208,6 +210,8 @@ class ProfileForm extends StatelessWidget {
                 isPrimaryColor: true,
                 buttonName: "Log out",
                 onPressed: () async {
+                  context.read<DashboardBloc>().add(ResetDashboardEvent());
+                  context.read<ProfileBloc>().add(ProfileResetEvent());
                   userPreferences.removePreferences().then((value) {
                     _firebaseHelper.signOut().then(
                       (value) {

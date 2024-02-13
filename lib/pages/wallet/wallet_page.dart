@@ -30,10 +30,19 @@ class _WalletPageState extends State<WalletPage> {
             hasNavigation: false,
           ),
           Positioned(
-            top: 100.h,
+            top: 250.h,
+            left: 100.w,
+            right: 100.w,
             child: SizedBox(
-                // child: BarChart(),
+              height: size.height * 0.5,
+              width: size.width,
+              child: Center(
+                child: Text(
+                  "Comming Soon",
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
+              ),
+            ),
           )
         ],
       ),

@@ -13,6 +13,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   DashboardBloc() : super(DashboardInitial()) {
     on<LoadDashboardDataEvent>(loadDashboardData);
+    on<ResetDashboardEvent>((event, emit) {
+      emit(DashboardInitial());
+    });
   }
 
   loadDashboardData(
